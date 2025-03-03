@@ -1,7 +1,17 @@
 
 <nav>
     <ul class="text-center navbar">
-        <li><a href="#">Login</a></li>
-        <li><a href="{% url 'register' %}">Register</a></li>
+        {% if not user.is_authenticated %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
+        {% else %}
+            <li>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            </li>
+            <li><a href="{% url 'blogs' %}">blogs</a></li>
+        {% endif %}
     </ul>
 </nav>
