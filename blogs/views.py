@@ -1,7 +1,20 @@
 from django.shortcuts import render, redirect
+from rest_framework.response import Response
+from rest_framework.generics import ListCreateAPIView
+from rest_framework.views import APIView
 from .models import Blog
+from .serializers import BlogSerializer
 from .forms import CreatePost
 
+class BlogListView(APIView):
+    def get(self, request):
+        blogs = Blog.objects.all()
+        serializer = BlogSerializer(blogs, many=True)
+        return Response(serializer.data)
+    
+class BlogListCreateView():
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
 def blogs(request):
     blogs = Blog.objects.all().order_by('-created_at') 
     context = {
