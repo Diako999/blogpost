@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
 from django.contrib import messages
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
+
 
 def register(request):
     if request.method == "POST":
@@ -16,3 +19,8 @@ def register(request):
     }
 
     return render(request, "registration/register.html", context)
+
+user = User.objects.get(username='Diako888')
+token = Token.objects.get(user=user)
+
+print(f"Token for {user.username}: {token.key}")
