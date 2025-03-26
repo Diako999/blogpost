@@ -66,6 +66,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'blog.urls'
+# Set session timeout to 20 minutes (1200 seconds)
+SESSION_COOKIE_AGE = 1200  
+
+# Ensure the session expires when the user closes the browser
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  
+
+# Set session timeout only for inactivity (requires middleware)
+SESSION_SAVE_EVERY_REQUEST = False  
 
 TEMPLATES = [
     {
